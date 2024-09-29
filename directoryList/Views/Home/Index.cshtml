@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Directory List</h1>
+    <p>Who am I ? <a href="https://www.linkedin.com/in/huseyinsanal/">Click to learn more about me</a>.</p>
+</div>
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+<h2>Directory List</h2>
+
+<form action="@Url.Action("AddPerson")" method="post">
+    <div>
+        <label for="name">Name</label>
+    </div>
+    <div>
+        <input id="name" name="name" type="text" pattern="[A-Za-zğüşöçİĞÜŞÖÇ]+" title="Please enter letters only!"/>
+        @Html.ValidationMessage("name", "", new {@class = "text-danger" })
+    </div>
+    <div>
+        <label for="surname">Surname</label>
+    </div>
+    <div>
+        <input id="surname" name="surname" type="text" pattern="[A-Za-zğüşöçİĞÜŞÖÇ]+" title="Please enter letters only!"/>
+        @Html.ValidationMessage("surname", "", new {@class = "text-danger" })
+    </div>
+    <div>
+        <label for="number">Phone</label>
+    </div>
+    <div>
+        <input id="number" name="number" type="tel" pattern="[0-9]*" title="Please enter phone number only!"/>
+        @Html.ValidationMessage("pn", "", new { @class = "text-danger" })
+    </div>
+    <div>
+        <input id="submit" type="submit" value="Submit"/>
+    </div>
+</form>
+
+
+

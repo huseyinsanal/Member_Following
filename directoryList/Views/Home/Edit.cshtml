@@ -1,0 +1,78 @@
+@{
+    ViewData["Title"] = "Edit Members";
+}
+@using Microsoft.AspNetCore.Mvc.ModelBinding
+@model directoryList.Models.PersonModel
+
+<h2>@Model.Name @Model.Surname</h2>
+
+<!-- User Info -->
+<div>
+    <p><strong>Phone Number: </strong> @Model.Number</p>
+</div>
+
+<!-- Show Notes -->
+<h3>Notes: </h3>
+<ul>
+    @if (Model.Notes != null && Model.Notes.Count > 0)
+    {
+        foreach (var note in Model.Notes)
+        {
+            <li>
+                <p><strong>Note: </strong> @note.Text</p>
+                <p>@note.Created</p>
+            </li>
+        }
+    }
+    else
+    {
+        <p>There is no note added for this user.</p>
+    }
+</ul>
+
+<!-- Add Note Section -->
+<form asp-controller="Home" asp-action="AddNote" method="post">
+    <input type="hidden" name="id" value="@Model.Id" />
+
+    <label for="newNote">Add a new note: </label>
+    <textarea id="newNote" name="noteText" rows="1" cols="50"></textarea>
+    
+    <label for="noteDate">Date: </label>
+    <input type="date" id="noteDate" name="noteDate">
+    
+    <br/>
+    <input type="submit" value="Save" />
+</form>
+
+<!-- Show Calls -->
+<h3>Calls: </h3>
+<ul>
+    @if (Model.Calls != null && Model.Calls.Count > 0)
+    {
+        foreach (var call in Model.Calls)
+        {
+            <li>
+                <p><strong>Call: </strong> @call.CallText</p>
+                <p>@call.CallTime</p>
+            </li>
+        }
+    }
+    else
+    {
+        <p>There is no call added for this user.</p>
+    }
+</ul>
+
+<!-- Add Calling Details -->
+<form asp-controller="Home" asp-action="AddCall" method="post">
+    <input type="hidden" name="id" value="@Model.Id"/>
+    
+    <label for="newCall">Add a new call: </label>
+    <textarea id="newCall" name="callText" rows="1" cols="50"></textarea>
+    
+    <label for="callDate">Date: </label>
+    <input type="datetime-local" id="callDate" name="callDate"/>
+    <br/>
+    
+    <input type="submit" value="Save"/>
+</form>

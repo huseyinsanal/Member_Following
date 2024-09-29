@@ -1,0 +1,77 @@
+@{
+    ViewData["Title"] = "My Directory";
+}
+@using Microsoft.AspNetCore.Mvc.ModelBinding
+@model List<directoryList.Models.PersonModel>
+@{
+var currentPage = ViewBag.CurrentPage;
+var totalPages = ViewBag.TotalPages;
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table>
+    <th>
+        ID
+    </th>
+    <th>
+        NAME
+    </th>
+    <th>
+        SURNAME
+    </th>
+    <th>
+        PHONE
+    </th>
+    <th>
+        EDIT PERSON
+    </th>
+    <th>
+        CLEAR PERSON
+    </th>
+    @foreach (var personModel in Model)
+    {
+        <tr>
+            <td>
+                @personModel.Id
+            </td>
+            <td>
+                @personModel.Name
+            </td>
+            <td>
+                @personModel.Surname
+            </td>
+            <td>
+                @personModel.Number
+            </td>
+            <td>
+                <form asp-controller="Home" asp-action="Edit" method="post">
+                    <input type="hidden" name="id" value="@personModel.Id"/>
+                    <input id="edit" type="submit" value="Edit"/>
+                </form>
+            </td>
+            <td>
+                <form asp-controller="Home" asp-action="RemovePerson" method="post">
+                    <input type="hidden" name="id" value="@personModel.Id"/>
+                    <input id="remove" type="submit" value="Clear Data"/>
+                </form>
+            </td>
+        </tr>
+    }
+</table>
+
+<!-- PAGINATION -->
+<div>
+    @if (currentPage > 1)
+    {
+    <a href="?page=@(currentPage - 1)">Önceki</a>
+    }
+
+    <span>Page @currentPage / @totalPages</span>
+
+    @if (currentPage < totalPages)
+    {
+    <a href="?page=@(currentPage + 1)">Next</a>
+    }
+</div>
+
